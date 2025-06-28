@@ -13,7 +13,7 @@ TypeScript、Hono、SQLite、PrismaでToDoアプリケーション用のRESTful 
 
 ## API仕様
 
-詳細なAPI仕様は `../docs/api-docs.apib` または `../docs/api-docs.html` を参照してください。
+詳細なAPI仕様は `../docs/ap.apib` または `../docs/api.html` を参照してください。
 
 ### エンドポイント
 
