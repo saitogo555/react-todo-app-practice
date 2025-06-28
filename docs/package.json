@@ -1,0 +1,14 @@
+{
+  "name": "react-todo-api-docs",
+  "version": "1.0.0",
+  "description": "API documentation with Aglio for React ToDo App Backend",
+  "scripts": {
+    "build": "aglio -i api.apib -o api.html",
+    "serve": "aglio -i api.apib --server --port 5000"
+  },
+  "devDependencies": {
+    "aglio": "^2.3.0"
+  },
+  "author": "Go Saito",
+  "license": "MIT"
+}

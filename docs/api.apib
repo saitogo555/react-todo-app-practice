@@ -1,0 +1,277 @@
+FORMAT: 1A
+HOST: http://localhost:3001
+
+# ToDo API ドキュメント
+
+ToDoアプリケーション用のRESTful API仕様書です。
+
+このAPIはToDoの作成、取得、更新、削除機能を提供します。
+
+## Data Structures
+
+### Todo (object)
++ id: 1 (number, required) - ユニークなToDo ID
++ title: 買い物リストを作成する (string, required) - ToDoのタイトル
++ description: 週末の買い物に必要なアイテムをリストアップする (string, optional) - ToDoの詳細説明
++ completed: false (boolean, required) - 完了状態
++ created_at: `2025-06-28T10:00:00Z` (string, required) - 作成日時（ISO 8601形式）
++ updated_at: `2025-06-28T10:00:00Z` (string, required) - 更新日時（ISO 8601形式）
+
+### TodoInput (object)
++ title: 新しいタスク (string, required) - ToDoのタイトル
++ description: タスクの詳細説明 (string, optional) - ToDoの詳細説明
+
+### TodoUpdate (object)
++ title: 更新されたタスク (string, optional) - ToDoのタイトル
++ description: 更新されたタスクの詳細説明 (string, optional) - ToDoの詳細説明
++ completed: true (boolean, optional) - 完了状態
+
+### Error (object)
++ error: エラーが発生しました (string, required) - エラーメッセージ
++ code: 400 (number, required) - HTTPステータスコード
+
+## Group ToDo管理
+
+### ToDo一覧 [/api/todos]
+
+#### ToDo一覧を取得 [GET]
+
+登録されているすべてのToDoを取得します。
+
++ Response 200 (application/json)
+    + Attributes (array[Todo])
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: サーバーエラーが発生しました
+        + code: 500
+
+#### 新しいToDoを作成 [POST]
+
+新しいToDoを作成します。
+
++ Request (application/json)
+    + Attributes (TodoInput)
+
++ Response 201 (application/json)
+    + Attributes (Todo)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+        + error: タイトルは必須です
+        + code: 400
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: ToDoの作成に失敗しました
+        + code: 500
+
+### 特定のToDo [/api/todos/{id}]
+
++ Parameters
+    + id: 1 (number, required) - ToDo ID
+
+#### ToDoを更新 [PUT]
+
+指定されたIDのToDoを更新します。
+
++ Request (application/json)
+    + Attributes (TodoUpdate)
+
++ Response 200 (application/json)
+    + Attributes (Todo)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+        + error: 無効なリクエストデータです
+        + code: 400
+
++ Response 404 (application/json)
+    + Attributes (Error)
+        + error: 指定されたToDoが見つかりません
+        + code: 404
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: ToDoの更新に失敗しました
+        + code: 500
+
+#### ToDoを削除 [DELETE]
+
+指定されたIDのToDoを削除します。
+
++ Response 204
+
++ Response 404 (application/json)
+    + Attributes (Error)
+        + error: 指定されたToDoが見つかりません
+        + code: 404
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: ToDoの削除に失敗しました
+        + code: 500
+
+#### ToDoを完了状態にする [PUT /api/todos/{id}/complete]
+
+指定されたIDのToDoを完了状態にします。
+
++ Parameters
+    + id: 1 (number, required) - ToDo ID
+
++ Response 200 (application/json)
+    + Attributes (Todo)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+        + error: 無効なIDです
+        + code: 400
+
++ Response 404 (application/json)
+    + Attributes (Error)
+        + error: 指定されたToDoが見つかりません
+        + code: 404
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: ToDoの完了処理に失敗しました
+        + code: 500
+
+#### ToDoを未完了状態にする [PUT /api/todos/{id}/uncomplete]
+
+指定されたIDのToDoを未完了状態にします。
+
++ Parameters
+    + id: 1 (number, required) - ToDo ID
+
++ Response 200 (application/json)
+    + Attributes (Todo)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+        + error: 無効なIDです
+        + code: 400
+
++ Response 404 (application/json)
+    + Attributes (Error)
+        + error: 指定されたToDoが見つかりません
+        + code: 404
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: ToDoの未完了処理に失敗しました
+        + code: 500
+
+## Group レスポンス例
+
+以下は各エンドポイントのより詳細なレスポンス例です。
+
+### サンプル: ToDo一覧取得
+
+GET `/api/todos` のレスポンス例：
+
+```json
+[
+    {
+        "id": 1,
+        "title": "買い物リストを作成する",
+        "description": "週末の買い物に必要なアイテムをリストアップする",
+        "completed": false,
+        "created_at": "2025-06-28T10:00:00Z",
+        "updated_at": "2025-06-28T10:00:00Z"
+    },
+    {
+        "id": 2,
+        "title": "プレゼンテーション資料を準備する",
+        "description": "月曜日の会議で使用する資料を作成する",
+        "completed": true,
+        "created_at": "2025-06-27T15:30:00Z",
+        "updated_at": "2025-06-28T09:15:00Z"
+    }
+]
+```
+
+### サンプル: ToDo作成
+
+POST `/api/todos` のリクエスト例：
+
+```json
+{
+    "title": "新しいタスク",
+    "description": "タスクの詳細説明"
+}
+```
+
+レスポンス例：
+
+```json
+{
+    "id": 3,
+    "title": "新しいタスク",
+    "description": "タスクの詳細説明",
+    "completed": false,
+    "created_at": "2025-06-28T12:00:00Z",
+    "updated_at": "2025-06-28T12:00:00Z"
+}
+```
+
+### サンプル: ToDo更新
+
+PUT `/api/todos/1` のリクエスト例：
+
+```json
+{
+    "title": "更新されたタスク",
+    "completed": true
+}
+```
+
+レスポンス例：
+
+```json
+{
+    "id": 1,
+    "title": "更新されたタスク",
+    "description": "週末の買い物に必要なアイテムをリストアップする",
+    "completed": true,
+    "created_at": "2025-06-28T10:00:00Z",
+    "updated_at": "2025-06-28T12:30:00Z"
+}
+```
+
+### サンプル: ToDo削除
+
+DELETE `/api/todos/1` のレスポンス：
+
+- ステータスコード: 204 No Content
+- レスポンスボディ: なし
+
+### サンプル: ToDo完了
+
+PUT `/api/todos/1/complete` のレスポンス例：
+
+```json
+{
+    "id": 1,
+    "title": "買い物リストを作成する",
+    "description": "週末の買い物に必要なアイテムをリストアップする",
+    "completed": true,
+    "created_at": "2025-06-28T10:00:00Z",
+    "updated_at": "2025-06-28T12:30:00Z"
+}
+```
+
+### サンプル: ToDo未完了
+
+PUT `/api/todos/1/uncomplete` のレスポンス例：
+
+```json
+{
+    "id": 1,
+    "title": "買い物リストを作成する",
+    "description": "週末の買い物に必要なアイテムをリストアップする",
+    "completed": false,
+    "created_at": "2025-06-28T10:00:00Z",
+    "updated_at": "2025-06-28T12:35:00Z"
+}
+```
