@@ -1,0 +1,25 @@
+services:
+  todo-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_URL=file:./dev.db
+    volumes:
+      - todo_db_data:/app/prisma
+    networks:
+      - todo-network
+    restart: unless-stopped
+
+volumes:
+  todo_db_data:
+    driver: local
+
+networks:
+  todo-network:
+    driver: bridge
