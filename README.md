@@ -14,7 +14,7 @@
 - **バックエンド**: HonoとPrismaを使用したモダンなAPIサーバー
 - **データベース**: SQLiteを使用した軽量なデータ永続化
 
-アプリケーションの仕様書[SPEC.md](SPEC.md)を参照してください。
+アプリケーションの詳細仕様については[SPEC.md](SPEC.md)を参照してください。
 
 ## アーキテクチャ
 
@@ -82,12 +82,12 @@ npm run docker:up
 **提供ライブラリ:**
 
 - React & ReactDOM（ZIP形式）
-- Bootstrap 5.3 (CDN形式)
-- Tailwind CSS (CDN形式)
-- FontAwesome (CDN形式)
-- 日本語Webフォント (CDN形式)
+- Bootstrap 5.3（CDN形式）
+- Tailwind CSS（CDN形式）
+- FontAwesome（CDN形式）
+- 日本語Webフォント（ローカル配布形式）
 
-自分の開発環境に応じてパッケージの選定をください。
+開発環境に応じてパッケージを選定してください。
 
 ## API仕様書
 
@@ -112,4 +112,4 @@ npm run serve
 
 [http://localhost:5000](http://localhost:5000)でAPI仕様書を閲覧できます。
 
-詳細は [`docs/README.md`](./docs/README.md) を参照
+詳細は[`docs/README.md`](./docs/README.md)を参照してください。

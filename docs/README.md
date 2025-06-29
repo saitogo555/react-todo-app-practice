@@ -11,7 +11,7 @@ ToDoアプリケーション用のRESTful APIで、以下の機能を提供し�
 - **ToDo更新** (`PUT /api/todos/{id}`)
 - **ToDo削除** (`DELETE /api/todos/{id}`)
 - **ToDo完了状態設定** (`PUT /api/todos/{id}/complete`)
-- **ToDo未完了状態設定** ( `PUT /api/todos/{id}/uncomplete`)
+- **ToDo未完了状態設定** (`PUT /api/todos/{id}/uncomplete`)
 
 ## ファイル構成
 
@@ -37,7 +37,7 @@ API Blueprint（`api.apib`）からHTMLファイルを生成します：
 npm run build
 ```
 
-このコマンドは `api.apib` を読み込み、スタイル付きのHTML仕様書 `api.html` を生成します。
+このコマンドは`api.apib`を読み込み、スタイル付きのHTML仕様書`api.html`を生成します。
 
 ### プレビュー
 
@@ -50,13 +50,13 @@ npm run serve
 このコマンドは以下の機能を提供します：
 
 - Webサーバーを起動
-- `api.apib` の変更を監視して自動リロード
-- ブラウザで `http://localhost:5000` にアクセスして確認
+- `api.apib`の変更を監視して自動リロード
+- ブラウザで`http://localhost:5000`にアクセスして確認
 
 ### 利用ツール
 
-- **Aglio** - API Blueprint を美しいHTMLドキュメントに変換するツール
-- サポートする機能：
+- **Aglio** - API BlueprintをHTML形式の美しいドキュメントに変換するツール
+- サポートされる機能：
 
   - 構文ハイライト付きのコード例
   - レスポンシブデザイン
