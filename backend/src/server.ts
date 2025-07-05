@@ -1,11 +1,9 @@
-import { serve } from '@hono/node-server';
-import app from './index';
-
-const port = parseInt(process.env.PORT ?? '3001');
+import { serve } from "@hono/node-server";
+import app from "./index";
 
 serve({
   fetch: app.fetch,
-  port,
+  port: app.port,
 });
 
-console.log(`🚀 ToDo API Server is running on http://localhost:${port}`);
+console.log(`🚀 ToDo API Server is running on http://localhost:${app.port}`);
