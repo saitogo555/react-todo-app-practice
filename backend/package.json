@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "ToDo API Backend with Hono and Prisma",
   "type": "module",
-  "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "npm run db:init && tsx src/server.ts",
@@ -12,12 +11,10 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "docker:build": "docker build -t todo-backend .",
-    "docker:run": "docker run -p 3001:3001 todo-backend",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "docker:logs": "docker compose logs -f todo-backend",
-    "docker:studio": "docker compose --profile studio up -d prisma-studio"
+    "docker:logs:api": "docker compose logs -f api-server",
+    "docker:logs:studio": "docker compose logs -f prisma-studio"
   },
   "dependencies": {
     "hono": "^4.8.3",
