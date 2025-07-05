@@ -1,20 +1,31 @@
 services:
-  todo-backend:
+  api-server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: todo-backend
+    container_name: api-server
     ports:
       - "3001:3001"
-    environment:
-      - NODE_ENV=production
-      - PORT=3001
-      - DATABASE_URL=file:./dev.db
     volumes:
       - todo_db_data:/app/prisma
     networks:
       - todo-network
     restart: unless-stopped
+    command: ["npm", "start"]
+
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prisma-studio
+    ports:
+      - "5555:5555"
+    volumes:
+      - todo_db_data:/app/prisma
+    networks:
+      - todo-network
+    restart: unless-stopped
+    command: ["npx", "prisma", "studio", "--port", "5555", "--hostname", "0.0.0.0"]
 
 volumes:
   todo_db_data:

@@ -34,9 +34,3 @@ RUN adduser -S todoapi -u 1001
 # ファイルの所有権を変更
 RUN chown -R todoapi:nodejs /app
 USER todoapi
-
-# ポート3001を公開
-EXPOSE 3001
-
-# アプリケーションを起動
-CMD ["npm", "start"]
