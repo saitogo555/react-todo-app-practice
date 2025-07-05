@@ -8,7 +8,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"], // フロントエンド用
+    origin: "*", // フロントエンド用
     allowMethods: ["GET", "POST", "PUT", "DELETE"],
     allowHeaders: ["Content-Type"],
   })
