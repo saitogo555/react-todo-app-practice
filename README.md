@@ -89,6 +89,41 @@ npm run docker:up
 
 開発環境に応じてパッケージを選定してください。
 
+## バックエンド
+
+**技術スタック**: TypeScript + Hono + Prisma + SQLite
+
+### 起動方法
+
+```bash
+cd backend
+
+# 依存関係のインストール
+npm install
+
+# APIサーバーの起動（http://localhost:3001）
+npm run start
+```
+
+### 開発時の便利コマンド
+
+```bash
+# 開発サーバー起動（ファイル変更を監視）
+npm run dev
+
+# データベース初期化
+npm run db:init
+
+# ダミーデータの挿入
+npm run db:seed
+
+# データベースGUI（Prisma Studio）
+npm run db:studio
+```
+
+詳細は[`backend/README.md`](./backend/README.md)を参照してください。
+
+
 ## API仕様書
 
 API仕様は **API Blueprint** 形式で文書化されています。
