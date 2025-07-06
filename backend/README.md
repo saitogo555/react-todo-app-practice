@@ -78,6 +78,23 @@ APIを動作させるためのセットアップ手順になります。
 - `npm run db:push` - データベーススキーマ適用
 - `npm run db:migrate` - マイグレーション実行
 - `npm run db:studio` - Prisma Studio起動（データベースGUI）
+- `npm run db:seed` - ダミーデータの挿入
+
+### ダミーデータの挿入
+
+開発やテスト用にダミーデータを挿入できます。
+
+```bash
+npm run db:seed
+```
+
+このコマンドを実行すると：
+
+- 既存のToDoデータがすべて削除されます
+- Fakerライブラリを使用して10件のダミーToDoが挿入されます
+- ランダムなタイトル、説明、完了状態、作成日時が生成されます
+
+ダミーデータの件数は`prisma/seed.ts`ファイルの`DATA_COUNT`定数で変更可能です。
 
 ### データベース
 
@@ -87,7 +104,7 @@ SQLiteを使用しており、データベースファイルは `prisma/dev.db` 
 
 ```prisma
 model Todo {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   title       String
   description String?
   completed   Boolean  @default(false)
@@ -97,10 +114,3 @@ model Todo {
   @@map("todos")
 }
 ```
-
-### CORS設定
-
-フロントエンドアプリケーションからのアクセスを許可するため、以下のオリジンでCORSが設定されています：
-
-- `http://localhost:3000`（Create React App等）
-- `http://localhost:5173`（Vite等）
