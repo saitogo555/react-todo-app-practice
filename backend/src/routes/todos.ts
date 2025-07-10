@@ -65,9 +65,9 @@ todos.post("/", async (c) => {
 // PUT /api/todos/:id - ToDoを更新
 todos.put("/:id", async (c) => {
   try {
-    const id = parseInt(c.req.param("id"));
+    const id = c.req.param("id");
 
-    if (isNaN(id)) {
+    if (!id || id.trim() === "") {
       return c.json(
         {
           error: "無効なIDです",
@@ -136,9 +136,9 @@ todos.put("/:id", async (c) => {
 // DELETE /api/todos/:id - ToDoを削除
 todos.delete("/:id", async (c) => {
   try {
-    const id = parseInt(c.req.param("id"));
+    const id = c.req.param("id");
 
-    if (isNaN(id)) {
+    if (!id || id.trim() === "") {
       return c.json(
         {
           error: "無効なIDです",
@@ -183,9 +183,9 @@ todos.delete("/:id", async (c) => {
 // PUT /api/todos/:id/complete - ToDoを完了状態にする
 todos.put("/:id/complete", async (c) => {
   try {
-    const id = parseInt(c.req.param("id"));
+    const id = c.req.param("id");
 
-    if (isNaN(id)) {
+    if (!id || id.trim() === "") {
       return c.json(
         {
           error: "無効なIDです",
@@ -231,9 +231,9 @@ todos.put("/:id/complete", async (c) => {
 // PUT /api/todos/:id/uncomplete - ToDoを未完了状態にする
 todos.put("/:id/uncomplete", async (c) => {
   try {
-    const id = parseInt(c.req.param("id"));
+    const id = c.req.param("id");
 
-    if (isNaN(id)) {
+    if (!id || id.trim() === "") {
       return c.json(
         {
           error: "無効なIDです",
