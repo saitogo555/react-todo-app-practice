@@ -10,7 +10,7 @@ ToDoアプリケーション用のRESTful API仕様書です。
 ## Data Structures
 
 ### Todo (object)
-+ id: 1 (number, required) - ユニークなToDo ID
++ id: `550e8400-e29b-41d4-a716-446655440000` (string, required) - ユニークなToDo ID（UUID形式）
 + title: 買い物リストを作成する (string, required) - ToDoのタイトル
 + description: 週末の買い物に必要なアイテムをリストアップする (string, optional) - ToDoの詳細説明
 + completed: false (boolean, required) - 完了状態
@@ -66,10 +66,35 @@ ToDoアプリケーション用のRESTful API仕様書です。
         + error: ToDoの作成に失敗しました
         + code: 500
 
+#### 個別のToDoを取得 [GET /api/todos/{id}]
+
+指定されたIDのToDoを取得します。
+
++ Parameters
+    + id: `550e8400-e29b-41d4-a716-446655440000` (string, required) - ToDo ID（UUID形式）
+
++ Response 200 (application/json)
+    + Attributes (Todo)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+        + error: 無効なIDです
+        + code: 400
+
++ Response 404 (application/json)
+    + Attributes (Error)
+        + error: 指定されたToDoが見つかりません
+        + code: 404
+
++ Response 500 (application/json)
+    + Attributes (Error)
+        + error: ToDoの取得に失敗しました
+        + code: 500
+
 ### 特定のToDo [/api/todos/{id}]
 
 + Parameters
-    + id: 1 (number, required) - ToDo ID
+    + id: `550e8400-e29b-41d4-a716-446655440000` (string, required) - ToDo ID（UUID形式）
 
 #### ToDoを更新 [PUT]
 
@@ -117,7 +142,7 @@ ToDoアプリケーション用のRESTful API仕様書です。
 指定されたIDのToDoを完了状態にします。
 
 + Parameters
-    + id: 1 (number, required) - ToDo ID
+    + id: `550e8400-e29b-41d4-a716-446655440000` (string, required) - ToDo ID（UUID形式）
 
 + Response 200 (application/json)
     + Attributes (Todo)
@@ -142,7 +167,7 @@ ToDoアプリケーション用のRESTful API仕様書です。
 指定されたIDのToDoを未完了状態にします。
 
 + Parameters
-    + id: 1 (number, required) - ToDo ID
+    + id: `550e8400-e29b-41d4-a716-446655440000` (string, required) - ToDo ID（UUID形式）
 
 + Response 200 (application/json)
     + Attributes (Todo)
@@ -173,7 +198,7 @@ GET `/api/todos` のレスポンス例：
 ```json
 [
     {
-        "id": 1,
+        "id": "550e8400-e29b-41d4-a716-446655440000",
         "title": "買い物リストを作成する",
         "description": "週末の買い物に必要なアイテムをリストアップする",
         "completed": false,
@@ -181,7 +206,7 @@ GET `/api/todos` のレスポンス例：
         "updated_at": "2025-06-28T10:00:00Z"
     },
     {
-        "id": 2,
+        "id": "550e8400-e29b-41d4-a716-446655440001",
         "title": "プレゼンテーション資料を準備する",
         "description": "月曜日の会議で使用する資料を作成する",
         "completed": true,
@@ -206,7 +231,7 @@ POST `/api/todos` のリクエスト例：
 
 ```json
 {
-    "id": 3,
+    "id": "550e8400-e29b-41d4-a716-446655440002",
     "title": "新しいタスク",
     "description": "タスクの詳細説明",
     "completed": false,
@@ -215,9 +240,24 @@ POST `/api/todos` のリクエスト例：
 }
 ```
 
+### サンプル: 個別ToDo取得
+
+GET `/api/todos/550e8400-e29b-41d4-a716-446655440000` のレスポンス例：
+
+```json
+{
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "title": "買い物リストを作成する",
+    "description": "週末の買い物に必要なアイテムをリストアップする",
+    "completed": false,
+    "created_at": "2025-06-28T10:00:00Z",
+    "updated_at": "2025-06-28T10:00:00Z"
+}
+```
+
 ### サンプル: ToDo更新
 
-PUT `/api/todos/1` のリクエスト例：
+PUT `/api/todos/550e8400-e29b-41d4-a716-446655440000` のリクエスト例：
 
 ```json
 {
@@ -230,7 +270,7 @@ PUT `/api/todos/1` のリクエスト例：
 
 ```json
 {
-    "id": 1,
+    "id": "550e8400-e29b-41d4-a716-446655440000",
     "title": "更新されたタスク",
     "description": "週末の買い物に必要なアイテムをリストアップする",
     "completed": true,
@@ -241,18 +281,18 @@ PUT `/api/todos/1` のリクエスト例：
 
 ### サンプル: ToDo削除
 
-DELETE `/api/todos/1` のレスポンス：
+DELETE `/api/todos/550e8400-e29b-41d4-a716-446655440000` のレスポンス：
 
 - ステータスコード: 204 No Content
 - レスポンスボディ: なし
 
 ### サンプル: ToDo完了
 
-PUT `/api/todos/1/complete` のレスポンス例：
+PUT `/api/todos/550e8400-e29b-41d4-a716-446655440000/complete` のレスポンス例：
 
 ```json
 {
-    "id": 1,
+    "id": "550e8400-e29b-41d4-a716-446655440000",
     "title": "買い物リストを作成する",
     "description": "週末の買い物に必要なアイテムをリストアップする",
     "completed": true,
@@ -263,11 +303,11 @@ PUT `/api/todos/1/complete` のレスポンス例：
 
 ### サンプル: ToDo未完了
 
-PUT `/api/todos/1/uncomplete` のレスポンス例：
+PUT `/api/todos/550e8400-e29b-41d4-a716-446655440000/uncomplete` のレスポンス例：
 
 ```json
 {
-    "id": 1,
+    "id": "550e8400-e29b-41d4-a716-446655440000",
     "title": "買い物リストを作成する",
     "description": "週末の買い物に必要なアイテムをリストアップする",
     "completed": false,
