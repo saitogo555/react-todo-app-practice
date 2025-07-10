@@ -123,7 +123,6 @@ npm run db:studio
 
 詳細は[`backend/README.md`](./backend/README.md)を参照してください。
 
-
 ## API仕様書
 
 API仕様は **API Blueprint** 形式で文書化されています。

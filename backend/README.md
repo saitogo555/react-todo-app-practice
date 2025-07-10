@@ -18,6 +18,7 @@ TypeScript、Hono、SQLite、PrismaでToDoアプリケーション用のRESTful 
 ### エンドポイント
 
 - `GET /api/todos` - ToDo一覧取得
+- `GET /api/todos/:id` - 個別のToDo取得
 - `POST /api/todos` - 新しいToDo作成
 - `PUT /api/todos/:id` - ToDo更新（タイトル、説明、完了状態の変更）
 - `DELETE /api/todos/:id` - ToDo削除
