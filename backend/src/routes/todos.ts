@@ -26,6 +26,48 @@ todos.get("/", async (c) => {
   }
 });
 
+// GET /api/todos/:id - 個別のToDoを取得
+todos.get("/:id", async (c) => {
+  try {
+    const id = c.req.param("id");
+
+    if (!id || id.trim() === "") {
+      return c.json(
+        {
+          error: "無効なIDです",
+          code: 400,
+        },
+        400
+      );
+    }
+
+    const todo = await prisma.todo.findUnique({
+      where: { id },
+    });
+
+    if (!todo) {
+      return c.json(
+        {
+          error: "指定されたToDoが見つかりません",
+          code: 404,
+        },
+        404
+      );
+    }
+
+    return c.json(todo);
+  } catch (error) {
+    console.error("ToDo取得エラー:", error);
+    return c.json(
+      {
+        error: "ToDoの取得に失敗しました",
+        code: 500,
+      },
+      500
+    );
+  }
+});
+
 // POST /api/todos - 新しいToDoを作成
 todos.post("/", async (c) => {
   try {
